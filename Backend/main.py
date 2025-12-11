@@ -12,7 +12,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Pydantic model for JSON body
 class User(BaseModel):
     user_id: str
     name: str
@@ -29,7 +28,7 @@ def register(user: User):
             database="project"
         )
         cursor = db.cursor()
-        cursor.execute(
+        cursor. execute(
             "INSERT INTO users (user_id, name, email, password) VALUES (%s, %s, %s, %s)",
             (user.user_id, user.name, user.email, user.password)
         )
@@ -37,3 +36,4 @@ def register(user: User):
         return {"success": True}
     except Exception as e:
         return {"success": False, "error": str(e)}
+
